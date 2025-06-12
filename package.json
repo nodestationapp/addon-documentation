@@ -28,7 +28,8 @@
     "release-it": "^17.10.0"
   },
   "peerDependencies": {
-    "glob": "^11.0.2"
+    "glob": "^11.0.2",
+    "formik": "^2.4.6"
   },
   "release-it": {
     "git": {
