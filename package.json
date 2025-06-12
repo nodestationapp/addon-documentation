@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
-  "description": "Nodestation's docs plugin",
+  "description": "Nodestation's documentation plugin",
   "scripts": {
-    "push-all": "node server/api/docGenerator/pushAll.js"
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,45 @@
     "name": "Krystian Wachnicki",
     "email": "ceo@nodestation.app"
   },
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^9.0.3",
+    "release-it": "^17.10.0"
+  },
   "peerDependencies": {
     "glob": "^11.0.2"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagName": "v${version}",
+      "requireCleanWorkingDir": false
+    },
+    "npm": false,
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "types": [
+          {
+            "type": "feat",
+            "section": "Features"
+          },
+          {
+            "type": "fix",
+            "section": "Bug Fixes"
+          },
+          {
+            "type": "chore(deps)",
+            "section": "Chores"
+          },
+          {
+            "type": "test",
+            "section": "Tests"
+          }
+        ]
+      }
+    }
   }
 }
