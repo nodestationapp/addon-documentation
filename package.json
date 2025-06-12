@@ -1,0 +1,29 @@
+{
+  "name": "@nstation/addon-documentation",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "MIT",
+  "description": "Nodestation's docs plugin",
+  "scripts": {
+    "push-all": "node server/api/docGenerator/pushAll.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodestationapp/nodestation.git"
+  },
+  "bin": {
+    "nodestation-docs": "./index.js"
+  },
+  "files": [
+    "./client",
+    "./server",
+    "./package.json"
+  ],
+  "author": {
+    "name": "Krystian Wachnicki",
+    "email": "ceo@nodestation.app"
+  },
+  "peerDependencies": {
+    "glob": "^11.0.2"
+  }
+}
