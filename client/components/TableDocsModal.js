@@ -75,14 +75,18 @@ const getPermissions = (permissions) => {
   return data;
 };
 
-const TableDocsModal = ({ open, data, onClose }) => {
+const TableDocsModal = ({ open, data, onClose, isLoading }) => {
   const [copied, setCopied] = useState(false);
   const [collapse, setCollapse] = useState(null);
+
+  if (isLoading) {
+    return null;
+  }
 
   const onChangePermissions = (value, index) => {
     const lastValue = value[value.length - 1];
 
-    let temp_endpoints = [...formik.values?.endpoints];
+    let temp_endpoints = [...formik?.values?.endpoints];
 
     if (lastValue === "public") {
       temp_endpoints[index].permissions = ["public"];
@@ -177,13 +181,11 @@ const TableDocsModal = ({ open, data, onClose }) => {
                       );
 
                       return (
-                        <>
-                          <Stack direction="row" alignItems="center" gap={1}>
-                            {index > 0 && ", "}
-                            {part?.icon}
-                            {part?.label}
-                          </Stack>
-                        </>
+                        <Stack direction="row" alignItems="center" gap={1}>
+                          {index > 0 && ", "}
+                          {part?.icon}
+                          {part?.label}
+                        </Stack>
                       );
                     });
 
@@ -211,7 +213,7 @@ const TableDocsModal = ({ open, data, onClose }) => {
       open={open}
       width={550}
       onClose={onClose}
-      onSubmit={() => {}}
+      onSubmit={formik.submitForm}
       submitLoading={false}
       submitDisabled={!formik.dirty}
       header="Table Docs"
@@ -287,7 +289,7 @@ const TableDocsModal = ({ open, data, onClose }) => {
                     </Typography>
                   </Tooltip>
                   <Stack direction="row" alignItems="center" gap={1} ml="auto">
-                    <PublicOutlinedIcon fontSize="small" />
+                    {/* <PublicOutlinedIcon fontSize="small" /> */}
                     <ExpandMoreIcon />
                   </Stack>
                 </Stack>

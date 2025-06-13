@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@nstation/design-system/utils";
 
 const TableDoc = ({ table }) => {
-  const { data: docs } = useQuery({
+  const { data: docs, isLoading: docsLoading } = useQuery({
     queryKey: ["client_tables_docs", table?.id],
     queryFn: () => api.get(`/tables/${table?.id}/docs`),
     enabled: !!table?.id,
@@ -28,6 +28,7 @@ const TableDoc = ({ table }) => {
         <TableDocsModal
           data={docs}
           open={tableDocs}
+          isLoading={docsLoading}
           onClose={() => setTableDocs(false)}
         />
       )}
