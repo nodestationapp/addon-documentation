@@ -11,6 +11,8 @@ async function docGenerator(props) {
     for await (const table_path of docsPath) {
       await pushAll(table_path, props?.regenerate);
     }
+
+    console.info("✨ Docs successfully generated!");
   } catch (err) {
     console.error(err);
   }

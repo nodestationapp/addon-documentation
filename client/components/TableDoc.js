@@ -11,7 +11,7 @@ import { api } from "@nstation/design-system/utils";
 const TableDoc = ({ table }) => {
   const { data: docs, isLoading: docsLoading } = useQuery({
     queryKey: ["client_tables_docs", table?.id],
-    queryFn: () => api.get(`/tables/${table?.id}/docs`),
+    queryFn: () => api.get(`/api/tables/${table?.id}/docs`),
     enabled: !!table?.id,
   });
 

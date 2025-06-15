@@ -218,7 +218,7 @@ const TableDocsModal = ({ open, data, onClose, isLoading }) => {
       submitDisabled={!formik.dirty}
       header="Table Docs"
     >
-      <Stack direction="column" gap={2}>
+      <Stack direction="column" gap={1}>
         {docs_data?.map((doc, index) => {
           const color =
             doc?.method === "GET"
@@ -274,7 +274,7 @@ const TableDocsModal = ({ open, data, onClose, isLoading }) => {
                     <Typography
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigator.clipboard.writeText("/tables/projects");
+                        navigator.clipboard.writeText(doc?.path);
                         setCopied(true);
                       }}
                       fontWeight={500}
@@ -289,7 +289,6 @@ const TableDocsModal = ({ open, data, onClose, isLoading }) => {
                     </Typography>
                   </Tooltip>
                   <Stack direction="row" alignItems="center" gap={1} ml="auto">
-                    {/* <PublicOutlinedIcon fontSize="small" /> */}
                     <ExpandMoreIcon />
                   </Stack>
                 </Stack>
