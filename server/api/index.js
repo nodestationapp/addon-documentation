@@ -1,7 +1,4 @@
 import getTableDocs from "./getTableDocs.js";
-import docGenerator from "./docGenerator/index.js";
-
-docGenerator();
 
 export default [
   {
