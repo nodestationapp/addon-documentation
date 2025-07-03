@@ -103,7 +103,7 @@ const TableDocsModal = ({ open, data, onClose, isLoading }) => {
   };
 
   const onSubmit = (values) => {
-    console.log(values?.endpoints);
+    console.info(values?.endpoints);
   };
 
   const formik = useFormik({

@@ -23,18 +23,21 @@ const getTemplate = (table_name, fields) => {
   }
 
   const current_post_index = currentTableDocs.findIndex(
-    (item) => item?.method === "POST" && item?.path === `/tables/${table_name}`
+    (item) =>
+      item?.method === "POST" && item?.path === `/api/tables/${table_name}`
   );
   const current_get_index = currentTableDocs.findIndex(
-    (item) => item?.method === "GET" && item?.path === `/tables/${table_name}`
+    (item) =>
+      item?.method === "GET" && item?.path === `/api/tables/${table_name}`
   );
   const current_put_index = currentTableDocs.findIndex(
     (item) =>
-      item?.method === "PUT" && item?.path === `/tables/${table_name}/:id`
+      item?.method === "PUT" && item?.path === `/api/tables/${table_name}/:id`
   );
   const current_delete_index = currentTableDocs.findIndex(
     (item) =>
-      item?.method === "DELETE" && item?.path === `/tables/${table_name}/:id`
+      item?.method === "DELETE" &&
+      item?.path === `/api/tables/${table_name}/:id`
   );
 
   if (current_post_index !== -1) {
@@ -50,7 +53,7 @@ const getTemplate = (table_name, fields) => {
   } else {
     currentTableDocs.push({
       method: "POST",
-      path: `/tables/${table_name}`,
+      path: `/api/tables/${table_name}`,
       body: fields?.map((field) => ({
         name: field?.slug,
         type: field?.type,
@@ -89,7 +92,7 @@ const getTemplate = (table_name, fields) => {
   } else {
     currentTableDocs.push({
       method: "GET",
-      path: `/tables/${table_name}`,
+      path: `/api/tables/${table_name}`,
       query: [
         {
           name: "filters",
@@ -128,7 +131,7 @@ const getTemplate = (table_name, fields) => {
   } else {
     currentTableDocs.push({
       method: "PUT",
-      path: `/tables/${table_name}/:id`,
+      path: `/api/tables/${table_name}/:id`,
       body: fields?.map((field) => ({
         name: field?.slug,
         type: field?.type,
@@ -145,7 +148,7 @@ const getTemplate = (table_name, fields) => {
   } else {
     currentTableDocs.push({
       method: "DELETE",
-      path: `/tables/${table_name}/:id`,
+      path: `/api/tables/${table_name}/:id`,
     });
   }
 
