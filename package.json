@@ -1,6 +1,6 @@
 {
   "name": "@nstation/addon-documentation",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "license": "MIT",
   "description": "Nodestation's documentation plugin",
@@ -22,6 +22,9 @@
   "author": {
     "name": "Krystian Wachnicki",
     "email": "ceo@nodestation.app"
+  },
+  "dependencies": {
+    "express-basic-auth": "^1.2.1"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^9.0.3",

@@ -1,7 +1,7 @@
-import TableDoc from "./components/TableDoc.js";
+// import TableDoc from "./components/TableDoc.js";
 
 export default {
   register(app) {
-    app.addHook("tables.actions", (table) => <TableDoc table={table} />);
+    // app.addHook("tables.actions", (table) => <TableDoc table={table} />);
   },
 };
