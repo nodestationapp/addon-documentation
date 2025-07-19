@@ -1,9 +1,9 @@
-import joinDocs from "./joinDocs.js";
+import docGenerate from "./docGenerate.js";
 import getTableDocs from "./getTableDocs.js";
 import auth from "@nstation/auth/utils/authMiddleware.js";
 
 (async () => {
-  await joinDocs({ regenerate: false });
+  await docGenerate({ regenerate: false });
 })();
 
 export default [

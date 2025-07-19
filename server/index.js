@@ -1,5 +1,5 @@
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json" with { type: "json" };
+import swaggerDocument from "./user-swagger.json" with { type: "json" };
 // import basicAuth from "express-basic-auth";
 // import fs from "fs";
 // import path from "path";
