@@ -2,6 +2,13 @@
 
 export default {
   register(app) {
-    // app.addHook("tables.actions", (table) => <TableDoc table={table} />);
+    app.addMenuLink({
+      to: `${process.env.PUBLIC_URL}/api-docs`,
+      label: "Documentation",
+      placement: "bottom",
+      target: "_blank",
+      order: 2,
+      icon: "lucide:book-text",
+    });
   },
 };

@@ -3,6 +3,7 @@ import path from "path";
 import { glob } from "glob";
 import { rootPath } from "@nstation/utils";
 import requireFromString from "require-from-string";
+import { yupToOpenAPI } from "./convertToOpenapi.js";
 
 export default async ({ regenerate = false }) => {
   try {
@@ -17,10 +18,19 @@ export default async ({ regenerate = false }) => {
     const adminSwaggerPath = path.join(__dirname, "..", "admin-swagger.json");
     const userSwaggerPath = path.join(__dirname, "..", "user-swagger.json");
 
-    const docsPath = glob.sync([
-      path.join(rootPath, "node_modules", "@nstation", "*/server/docs/*.json"),
-      path.join(rootPath, "plugins", "*/server/docs/*.json"),
+    let docsPath = glob.sync([
+      path.join(rootPath, "node_modules", "@nstation", "*/server/api/index.js"),
     ]);
+
+    const activePlugins = parsedConfig?.plugins?.filter(
+      (plugin) => plugin?.resolve
+    );
+
+    const activePluginsDocs = activePlugins
+      ?.map((plugin) => plugin.resolve?.replace("./", `${rootPath}/`))
+      ?.map((plugin) => path.join(plugin, "server", "api", "index.js"));
+
+    docsPath.push(...activePluginsDocs);
 
     let currentAdminDoc = JSON.parse(fs.readFileSync(adminSwaggerPath, "utf8"));
     let currentUserDoc = JSON.parse(fs.readFileSync(userSwaggerPath, "utf8"));
@@ -35,14 +45,26 @@ export default async ({ regenerate = false }) => {
 
     let admin_paths = {};
     let user_paths = {};
-    for await (const doc of docsPath) {
-      const docData = JSON.parse(fs.readFileSync(doc, "utf8"));
 
-      Object.keys(docData).forEach((path) => {
+    for await (const doc of docsPath) {
+      console.info(`→ ${doc}`);
+
+      if (!fs.existsSync(doc)) {
+        return;
+      }
+
+      const module = await import(doc);
+      const docData = module.default;
+
+      const formattedDocData = docData.filter((route) => !route.hidden);
+
+      const openApi = yupToOpenAPI(formattedDocData);
+
+      Object.keys(openApi).forEach((path) => {
         if (path.startsWith("/admin-api")) {
-          admin_paths[path] = docData[path];
+          admin_paths[path] = openApi[path];
         } else {
-          user_paths[path] = docData[path];
+          user_paths[path] = openApi[path];
         }
       });
     }
@@ -80,7 +102,7 @@ export default async ({ regenerate = false }) => {
           },
         },
       },
-      paths: { ...user_paths },
+      paths: { ...admin_paths },
     };
 
     fs.writeFileSync(
