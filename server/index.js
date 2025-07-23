@@ -25,25 +25,7 @@ export default {
       );
       userOpenApiDocument = userOpenApiDocument.default;
 
-      let adminOpenApiDocument = await import(
-        path.join(rootPath, "src", "documentation", "admin-openapi.json"),
-        {
-          assert: { type: "json" },
-        }
-      );
-      adminOpenApiDocument = adminOpenApiDocument.default;
-
       if (userOpenApiDocument) {
-        app.express.use(
-          "/admin-api-docs",
-          // basicAuth({
-          //   users: { admin: "admin" },
-          //   challenge: true,
-          // }),
-          swaggerUi.serve,
-          swaggerUi.setup(userOpenApiDocument)
-        );
-
         app.express.use(
           "/api-docs",
           // basicAuth({
@@ -51,7 +33,7 @@ export default {
           //   challenge: true,
           // }),
           swaggerUi.serve,
-          swaggerUi.setup(adminOpenApiDocument)
+          swaggerUi.setup(userOpenApiDocument)
         );
       }
     } catch (err) {
