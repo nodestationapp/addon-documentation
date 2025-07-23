@@ -14,9 +14,19 @@ export default async ({ regenerate = false }) => {
 
     const parsedConfig = requireFromString(config);
 
-    const __dirname = path.dirname(new URL(import.meta.url).pathname);
-    const adminSwaggerPath = path.join(__dirname, "..", "admin-swagger.json");
-    const userSwaggerPath = path.join(__dirname, "..", "user-swagger.json");
+    const adminSwaggerPath = path.join(
+      rootPath,
+      "src",
+      "documentation",
+      "admin-openapi.json"
+    );
+    const userSwaggerPath = path.join(
+      rootPath,
+      "src",
+      "documentation",
+      "user-openapi.json"
+    );
+    const documentationOutputPath = path.join(rootPath, "src", "documentation");
 
     let docsPath = glob.sync([
       path.join(rootPath, "node_modules", "@nstation", "*/server/api/index.js"),
@@ -32,8 +42,12 @@ export default async ({ regenerate = false }) => {
 
     docsPath.push(...activePluginsDocs);
 
-    let currentAdminDoc = JSON.parse(fs.readFileSync(adminSwaggerPath, "utf8"));
-    let currentUserDoc = JSON.parse(fs.readFileSync(userSwaggerPath, "utf8"));
+    let currentAdminDoc = {};
+    let currentUserDoc = {};
+    if (!!fs.existsSync(documentationOutputPath)) {
+      currentAdminDoc = JSON.parse(fs.readFileSync(adminSwaggerPath, "utf8"));
+      currentUserDoc = JSON.parse(fs.readFileSync(userSwaggerPath, "utf8"));
+    }
 
     if (
       (Object.keys(currentAdminDoc).length > 0 ||
@@ -104,6 +118,12 @@ export default async ({ regenerate = false }) => {
       },
       paths: { ...admin_paths },
     };
+
+    if (!fs.existsSync(documentationOutputPath)) {
+      await fs.mkdirSync(documentationOutputPath, {
+        recursive: true,
+      });
+    }
 
     fs.writeFileSync(
       adminSwaggerPath,
