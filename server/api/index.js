@@ -1,6 +1,6 @@
 import docGenerate from "./docGenerate.js";
-import getTableDocs from "./getTableDocs.js";
-import { yupToOpenAPI } from "./convertToOpenapi.js";
+// import getTableDocs from "./getTableDocs.js";
+// import { yupToOpenAPI } from "./convertToOpenapi.js";
 
 // import loginSchema from "../../../../packages/core/auth/server/utils/validations/loginSchema.js";
 
@@ -20,10 +20,10 @@ import { yupToOpenAPI } from "./convertToOpenapi.js";
 // console.log(JSON.stringify(d.paths, null, 2));
 
 export default [
-  {
-    method: "GET",
-    path: "/tables/:id/docs",
-    handler: getTableDocs,
-    auth: ["admin"],
-  },
+  // {
+  //   method: "GET",
+  //   path: "/tables/:id/docs",
+  //   handler: getTableDocs,
+  //   auth: ["admin"],
+  // },
 ];

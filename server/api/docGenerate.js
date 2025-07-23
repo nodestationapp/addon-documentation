@@ -116,7 +116,7 @@ export default async ({ regenerate = false }) => {
           },
         },
       },
-      paths: { ...admin_paths },
+      paths: { ...user_paths },
     };
 
     if (!fs.existsSync(documentationOutputPath)) {
