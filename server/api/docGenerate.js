@@ -61,8 +61,6 @@ export default async ({ regenerate = false }) => {
     let user_paths = {};
 
     for await (const doc of docsPath) {
-      console.info(`→ ${doc}`);
-
       if (!fs.existsSync(doc)) {
         return;
       }
@@ -79,6 +77,7 @@ export default async ({ regenerate = false }) => {
           admin_paths[path] = openApi[path];
         } else {
           user_paths[path] = openApi[path];
+          console.info(`→ ${path}`);
         }
       });
     }

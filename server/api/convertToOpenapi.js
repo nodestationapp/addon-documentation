@@ -98,6 +98,10 @@ function yupToOpenAPI(routes, options = {}) {
       openApiSchema.pattern = meta.pattern;
     }
 
+    if (meta.enum !== undefined) {
+      openApiSchema.enum = meta.enum;
+    }
+
     if (meta.minimum !== undefined) {
       openApiSchema.minimum = meta.minimum;
     }
@@ -155,6 +159,7 @@ function yupToOpenAPI(routes, options = {}) {
       tags: validationMeta.tags || ["default"],
       summary: validationMeta.summary || `${method} ${openApiPath}`,
       description: validationMeta.description || "",
+      type: validationMeta.type || "application/json",
       responses: {},
     };
 
@@ -214,7 +219,7 @@ function yupToOpenAPI(routes, options = {}) {
       endpoint.requestBody = {
         required: true,
         content: {
-          "application/json": {
+          [endpoint.type]: {
             schema: bodySchema,
           },
         },

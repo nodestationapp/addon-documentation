@@ -1,6 +1,6 @@
+import path from "path";
 import swaggerUi from "swagger-ui-express";
 import { rootPath } from "@nstation/utils";
-import path from "path";
 // import basicAuth from "express-basic-auth";
 // import fs from "fs";
 // import path from "path";
